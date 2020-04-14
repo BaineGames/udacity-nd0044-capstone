@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from models import setup_db, Movies, Actors
 from flask_cors import CORS
 
@@ -15,15 +15,13 @@ def create_app(test_config=None):
 
     @app.route('/movies', methods=["GET"])
     def get_movies():
-      movies = Movies.query.all()
-      print(movies)
-      return 'True'
+      formatted_movies = [movie.format() for movie in Movies.query.all()]
+      return jsonify({'movies':formatted_movies})
 
     @app.route('/actors', methods=["GET"])
     def get_actors():
-      actors = Actors.query.all()
-      print(actors)
-      return 'True'
+      formatted_actors = [actor.format() for actor in Actors.query.all()]
+      return jsonify({'actors':formatted_actors})
 
     @app.route('/movies', methods=["POST"])
     def post_movies():
@@ -31,8 +29,7 @@ def create_app(test_config=None):
       movie_date = request.json.get("releaseDate")
       movie = Movies(title=movie_title, releaseDate=movie_date)
       movie.insert()
-      print(movie.format())
-      return 'True'
+      return jsonify({'movies':movie.format()})
 
     @app.route('/actors', methods=["POST"])
     def post_actors():

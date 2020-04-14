@@ -28,19 +28,16 @@ class Movies(db.Model):
     id = Column(Integer, primary_key=True)
     title = Column(String)
     releaseDate = Column(Date)
-    genre = Column(String)
 
-    def __init__(self, title, releaseDate, genre):
+    def __init__(self, title, releaseDate):
         self.title = title
         self.releaseDate = releaseDate
-        self.genre = genre
 
     def format(self):
         return {
             'id': self.id,
             'title': self.title,
-            'releaseDate': self.releaseDate,
-            'genre': self.genre
+            'releaseDate': self.releaseDate
         }
 
     def insert(self):
