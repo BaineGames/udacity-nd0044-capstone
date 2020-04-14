@@ -9,13 +9,6 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
 
-    @app.route('/')
-    def get_greeting():
-        excited = os.environ['EXCITED']
-        greeting = "Hello" 
-        if excited == 'true': greeting = greeting + "!!!!!"
-        return greetingW
-
     @app.route('/movies', methods=["GET"])
     def get_movies():
       movies = Movies.query.all()
@@ -30,6 +23,30 @@ def create_app(test_config=None):
       movie.insert()
       print(movie.format())
       return 'True'
+
+    @app.route('/movies/<int:id>', methods=["DELETE"])
+    def delete_movies(id):
+      movie = Movies.query.get(id)
+      if not movie:
+        return "junk delete"
+      movie.delete()
+      return 'True'
+
+    @app.route("/movies/<int:id>", methods=["PATCH"])
+    def patch_movies(id):
+        movie_title = request.json.get("title")
+        movie_date = request.json.get("releaseDate")
+        movie = Movies.query.get(id)
+        if not movie:
+            return "DNE"
+
+        if movie_title:
+            movie.title = movie_title
+
+        if movie_date:
+            movie.releaseDate = movie_date
+        movie.update()
+        return "True"
 
     @app.route('/actors', methods=["GET"])
     def get_actors():
