@@ -9,6 +9,10 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
 
+    @app.route("/")
+    def home():
+      return "<h1>Home</h1>"
+
     @app.route('/movies', methods=["GET"])
     def get_movies():
       movies = Movies.query.all()
