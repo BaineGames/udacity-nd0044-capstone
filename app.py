@@ -10,6 +10,7 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
 
+    db_drop_db()
     db_create_db()
 
     @app.route("/")
