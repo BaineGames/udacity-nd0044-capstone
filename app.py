@@ -72,6 +72,27 @@ def create_app(test_config=None):
         movie.update()
         return "True"
 
+    @app.route("/actors/<int:id>", methods=["PATCH"])
+    def patch_actors(id):
+        actor_name = request.json.get("name")
+        actor_age = request.json.get("age")
+        actor_gender = request.json.get("gender")
+        actor = Actors.query.get(id)
+        if not actor:
+            return "DNE"
+
+        if actor_name:
+            actor.name = actor_name
+
+        if actor_age:
+            actor.age = actor_age
+
+        if actor_gender:
+            actor.gender = actor_gender
+        
+        actor.update()
+        return "True"
+
     return app
 
 app = create_app()
