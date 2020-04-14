@@ -1,3 +1,3 @@
 export DATABASE_URL=postgresql://postgres:password@localhost:5432/nd0044-capstone
 export FLASK_ENV=development
-python app.py
+python manage.py db upgrade
