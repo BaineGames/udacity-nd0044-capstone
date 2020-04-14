@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, jsonify
-from models import setup_db, Movies, Actors, db_drop_and_create_all
+from models import setup_db, Movies, Actors, db_drop_db
 from flask_cors import CORS
 from auth import AuthError, requires_auth
 
@@ -10,7 +10,7 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
 
-    db_drop_and_create_all()
+    db_drop_db()
 
     @app.route("/")
     def home():
