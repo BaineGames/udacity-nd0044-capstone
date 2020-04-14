@@ -1,0 +1,4 @@
+Flask
+Gunicorn
+Flask-Sqlalchemy
+Flask-CORS
