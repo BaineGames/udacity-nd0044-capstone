@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, jsonify
 from models import setup_db, Movies, Actors, db_drop_and_create_all
 from flask_cors import CORS
+from auth import AuthError, requires_auth
 
 def create_app(test_config=None):
 
