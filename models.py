@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 
 database_path = os.environ['DATABASE_URL']
-#database_path = 'postgresql://postgres:password@localhost:5432/nd0044-capstone'
 
 db = SQLAlchemy()
 
@@ -30,16 +29,27 @@ class Movies(db.Model):
     title = Column(String)
     releaseDate = Column(Date)
 
-    def __init__(self, title, date):
+    def __init__(self, title, releaseDate):
         self.title = title
-        self.date = date
+        self.releaseDate = releaseDate
 
     def format(self):
         return {
             'id': self.id,
             'title': self.title,
-            'date': self.date
+            'releaseDate': self.releaseDate
         }
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+    
+    def update(self):
+        db.session.commit()
 
 '''
 Actors
