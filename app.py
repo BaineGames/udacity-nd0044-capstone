@@ -16,12 +16,12 @@ def create_app(test_config=None):
     @app.route('/movies', methods=["GET"])
     def get_movies():
       formatted_movies = [movie.format() for movie in Movies.query.all()]
-      return jsonify({'success':True,'movies':formatted_movies})
+      return jsonify({'success':True,'movies':formatted_movies}), 200
 
     @app.route('/actors', methods=["GET"])
     def get_actors():
       formatted_actors = [actor.format() for actor in Actors.query.all()]
-      return jsonify({'success':True,'actors':formatted_actors})
+      return jsonify({'success':True,'actors':formatted_actors}), 200
 
     @app.route('/movies', methods=["POST"])
     def post_movies():
@@ -29,7 +29,7 @@ def create_app(test_config=None):
       movie_date = request.json.get("releaseDate")
       movie = Movies(title=movie_title, releaseDate=movie_date)
       movie.insert()
-      return jsonify({'success':True,'movies':movie.format()})
+      return jsonify({'success':True,'movies':movie.format()}), 200
 
     @app.route('/actors', methods=["POST"])
     def post_actors():
@@ -38,7 +38,7 @@ def create_app(test_config=None):
       actor_gender = request.json.get("gender")
       actor = Actors(name=actor_name, age=actor_age, gender=actor_gender)
       actor.insert()
-      return jsonify({'success':True,'actor':actor.format()})
+      return jsonify({'success':True,'actor':actor.format()}), 200
 
     @app.route('/movies/<int:id>', methods=["DELETE"])
     def delete_movies(id):
@@ -46,7 +46,7 @@ def create_app(test_config=None):
       if not movie:
         return jsonify({'success':False,'message':"Movie does not exist!"})
       movie.delete()
-      return jsonify({'success':True,'deleted_movie_id':id})
+      return jsonify({'success':True,'deleted_movie_id':id}), 200
 
     @app.route('/actors/<int:id>', methods=["DELETE"])
     def delete_actors(id):
@@ -54,7 +54,7 @@ def create_app(test_config=None):
       if not actor:
         return jsonify({'success':False,'message':"Actor does not exist!"})
       actor.delete()
-      return jsonify({'success':True,'deleted_actor_id':id})
+      return jsonify({'success':True,'deleted_actor_id':id}), 200
 
     @app.route("/movies/<int:id>", methods=["PATCH"])
     def patch_movies(id):
@@ -62,7 +62,7 @@ def create_app(test_config=None):
         movie_date = request.json.get("releaseDate")
         movie = Movies.query.get(id)
         if not movie:
-            return jsonify({'success':False,'message':"Movie does not exist!"})
+            return jsonify({'success':False,'message':"Movie does not exist!"}), 200
 
         if movie_title:
             movie.title = movie_title
@@ -79,7 +79,7 @@ def create_app(test_config=None):
         actor_gender = request.json.get("gender")
         actor = Actors.query.get(id)
         if not actor:
-            return jsonify({'success':False,'message':"Actor does not exist!"})
+            return jsonify({'success':False,'message':"Actor does not exist!"}), 200
 
         if actor_name:
             actor.name = actor_name
@@ -91,7 +91,7 @@ def create_app(test_config=None):
             actor.gender = actor_gender
         
         actor.update()
-        return jsonify({'success':True,'actor':actor.format()})
+        return jsonify({'success':True,'actor':actor.format()}), 200
 
     return app
 
