@@ -15,6 +15,12 @@ def create_app(test_config=None):
       print(movies)
       return 'True'
 
+    @app.route('/actors', methods=["GET"])
+    def get_actors():
+      actors = Actors.query.all()
+      print(actors)
+      return 'True'
+
     @app.route('/movies', methods=["POST"])
     def post_movies():
       movie_title = request.json.get("title")
@@ -24,12 +30,30 @@ def create_app(test_config=None):
       print(movie.format())
       return 'True'
 
+    @app.route('/actors', methods=["POST"])
+    def post_actors():
+      actor_name = request.json.get("name")
+      actor_age = request.json.get("age")
+      actor_gender = request.json.get("gender")
+      actor = Actors(name=actor_name, age=actor_age, gender=actor_gender)
+      actor.insert()
+      print(actor.format())
+      return 'True'
+
     @app.route('/movies/<int:id>', methods=["DELETE"])
     def delete_movies(id):
       movie = Movies.query.get(id)
       if not movie:
         return "junk delete"
       movie.delete()
+      return 'True'
+
+    @app.route('/actors/<int:id>', methods=["DELETE"])
+    def delete_actors(id):
+      actor = Actors.query.get(id)
+      if not actor:
+        return "junk delete"
+      actor.delete()
       return 'True'
 
     @app.route("/movies/<int:id>", methods=["PATCH"])
@@ -47,15 +71,6 @@ def create_app(test_config=None):
             movie.releaseDate = movie_date
         movie.update()
         return "True"
-
-    @app.route('/actors', methods=["GET"])
-    def get_actors():
-      actors = Actors.query.all()
-      print(actors)
-      return 'True'
-
-
-
 
     return app
 
