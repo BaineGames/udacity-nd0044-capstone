@@ -7,7 +7,7 @@ from urllib.request import urlopen
 
 AUTH0_DOMAIN = 'dev-rcrwdmsb.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'udacity-nd0044-p4'
+API_AUDIENCE = 'udacity-nd0044-capstone'
 
 # AuthError Exception
 '''
