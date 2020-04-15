@@ -2,6 +2,12 @@
 
 ## Getting Started
 
+### Deployed Endpoint API
+The API is deployed onto heroku [http://fathomless-sierra-70129.herokuapp.com/](http://fathomless-sierra-70129.herokuapp.com/)
+The root `/` of the API is public and does not require RBAC.
+
+Tokens are included representing the different roles in the `test_app.py` file.
+
 ### Installing Dependencies
 
 #### Python 3.7
