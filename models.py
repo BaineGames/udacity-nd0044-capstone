@@ -23,6 +23,14 @@ def db_create_db():
 def db_drop_db():
     db.drop_all()
 
+def add_seed_data():
+    Actors(name="Actor 1", age=23, gender="Male").insert()
+    Actors(name="Actor 2", age=25, gender="Female").insert()
+    Actors(name="Actor 3", age=43, gender="Male").insert()
+    Movies(title="Movie 1", releaseDate="2020-01-01").insert()
+    Movies(title="Movie 2", releaseDate="2020-02-01").insert()
+    Movies(title="Movie 3", releaseDate="2020-03-01").insert()
+
 '''
 Movies
 have title and release date
