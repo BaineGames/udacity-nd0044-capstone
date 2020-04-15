@@ -115,6 +115,24 @@ def create_app(test_config=None):
         'error':error.status_code,
         'message':error.error['description']
       }), error.status_code
+    
+    @app.errorhandler(404)
+    def throw_not_found(error):
+        return jsonify({
+            "error": 404
+        }), 404
+
+    @app.errorhandler(400)
+    def throw_not_found(error):
+        return jsonify({
+            "error": 400
+        }), 400
+
+    @app.errorhandler(504)
+    def throw_not_found(error):
+        return jsonify({
+            "error": "Gateway Timeout"
+        }), 504
 
     return app
 
