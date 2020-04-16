@@ -62,6 +62,14 @@ Setting the `DATABASE_URL` variable to `postgresql://postgres:password@localhost
 ## Tasks
 The Casting Agency models a company that is responsible for creating movies and managing and assigning actors to those movies. You are an Executive Producer within the company and are creating a system to simplify and streamline your process.
 
+## RBAC Enabled
+There are 3 roles setup for this project. `Casting Assitant`, `Casting Director`, and `Executive Producer`
+
+##### Permission Structure
+- `Casting Assistant` has permissions on [`get:movies`,`get:actors`]
+- `Casting Director` has the same permissions as `Casting Assistant` PLUS [post:actors`,`patch:actors`,`delete:actors`,`patch:movies`]
+- `Executive Producer` has the same permissions as `Casting Director` PLUS [`post:movies`,`delete:movies`]
+
 ## Endpoints
 
 GET '/'  

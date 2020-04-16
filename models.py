@@ -11,17 +11,22 @@ db = SQLAlchemy()
 setup_db(app)
     binds a flask application and a SQLAlchemy service
 '''
+
+
 def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
 
+
 def db_create_db():
     db.create_all()
 
+
 def db_drop_db():
     db.drop_all()
+
 
 def add_seed_data():
     Actors(name="Actor 1", age=23, gender="Male").insert()
@@ -31,10 +36,12 @@ def add_seed_data():
     Movies(title="Movie 2", releaseDate="2020-02-01").insert()
     Movies(title="Movie 3", releaseDate="2020-03-01").insert()
 
+
 '''
 Movies
 have title and release date
 '''
+
 
 class Movies(db.Model):
     __tablename__ = "Movies"
@@ -56,18 +63,20 @@ class Movies(db.Model):
     def insert(self):
         db.session.add(self)
         db.session.commit()
-    
+
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-    
+
     def update(self):
         db.session.commit()
+
 
 '''
 Actors
 have name, age, gender
 '''
+
 
 class Actors(db.Model):
     __tablename__ = "Actors"
@@ -92,10 +101,10 @@ class Actors(db.Model):
     def insert(self):
         db.session.add(self)
         db.session.commit()
-    
+
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-    
+
     def update(self):
         db.session.commit()
